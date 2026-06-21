@@ -1,0 +1,42 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: smegasberla <smegasberla@gmail.com>
+Date: Sun, 21 Jun 2026 15:03:26 +0200
+Subject: [PATCH] Nebula: Add metrics endpoint hooks to MinecraftServer
+
+
+diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
+index 66ee7060aab09625d2b6491962d3039ce9b365c9..15e00e71b4fa0f296a4a72af64b0d01082b43dfb 100644
+--- a/net/minecraft/server/MinecraftServer.java
++++ b/net/minecraft/server/MinecraftServer.java
+@@ -186,6 +186,7 @@ import net.minecraft.world.level.timers.TimerQueue;
+ import net.minecraft.world.phys.Vec2;
+ import net.minecraft.world.phys.Vec3;
+ import net.minecraft.world.scores.ScoreboardSaveData;
++import org.nebula.NebulaMetrics;
+ import org.jspecify.annotations.Nullable;
+ import org.slf4j.Logger;
+ 
+@@ -333,6 +334,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+     public volatile Thread shutdownThread; // Paper - Improved watchdog support
+     public final io.papermc.paper.configuration.PaperConfigurations paperConfigurations; // Paper - add paper configuration files
+     public final org.galemc.gale.configuration.GaleConfigurations galeConfigurations; // Gale - Gale configuration
++    public final NebulaMetrics nebulaMetrics = new NebulaMetrics(this);
+     public boolean isIteratingOverLevels = false; // Paper - Throw exception on world create while being ticked
+     private final Set<String> pluginsBlockingSleep = new java.util.HashSet<>(); // Paper - API to allow/disallow tick sleeping
+     public static final long SERVER_INIT = System.nanoTime(); // Paper - Lag compensation
+@@ -1186,6 +1188,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+             ca.spottedleaf.moonrise.common.util.MoonriseCommon.haltExecutors();
+         }
+         // Paper end - rewrite chunk system
++        this.nebulaMetrics.stop(); // Nebula - metrics endpoint
+         // Paper start - Improved watchdog support - move final shutdown items here
+         Util.shutdownExecutors();
+         org.dreeam.leaf.async.ShutdownExecutors.shutdown(this); // Leaf
+@@ -1389,6 +1392,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+             // Paper end
+             org.spigotmc.WatchdogThread.hasStarted = true; // Paper
+             org.dreeam.leaf.config.LeafConfig.regSparkExtraConfig(); // Leaf - Leaf config
++            this.nebulaMetrics.start(); // Nebula - metrics endpoint
+             net.minecraft.world.level.block.Blocks.initPathType(); // Leaf - Cache block state tags
+             // Paper start - Add onboarding message for initial server start
+             if (io.papermc.paper.configuration.GlobalConfiguration.isFirstStart) {
