@@ -95,7 +95,7 @@ public class NebulaMetrics {
         for (ServerLevel level : this.server.getAllLevels()) {
             if (!first) sb.append(",\n");
             first = false;
-            sb.append("    {\"name\": \"").append(level.dimension().location())
+            sb.append("    {\"name\": \"").append(level.dimension().identifier())
                 .append("\", \"players\": ").append(level.players().size())
                 .append(", \"entities\": ").append(level.moonrise$getEntityLookup().getEntityCount()).append("}");
         }
@@ -138,7 +138,7 @@ public class NebulaMetrics {
         sb.append("# HELP nebula_entities Entity count per world\n");
         sb.append("# TYPE nebula_entities gauge\n");
         for (ServerLevel level : this.server.getAllLevels()) {
-            sb.append("nebula_entities{world=\"").append(level.dimension().location()).append("\"} ")
+            sb.append("nebula_entities{world=\"").append(level.dimension().identifier()).append("\"} ")
                 .append(level.moonrise$getEntityLookup().getEntityCount()).append("\n");
         }
 
