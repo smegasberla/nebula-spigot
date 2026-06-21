@@ -1,0 +1,40 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: smegasberla <smegasberla@gmail.com>
+Date: Sun, 21 Jun 2026 14:47:42 +0200
+Subject: [PATCH] Nebula: Early type check before item merge wall raycast
+
+Skip the expensive clipDirect raycast when items are different types.
+areMergable is a cheap constant-time check (type + component comparison),
+while clipDirect traverses voxel shapes. Moving it first saves CPU on
+servers with mixed item entities.
+
+diff --git a/net/minecraft/world/entity/item/ItemEntity.java b/net/minecraft/world/entity/item/ItemEntity.java
+index 07e10a98bdd80a25648947356fb2daba19454a4f..3e079cd47e3538f2127ae20254b5b2efec814c35 100644
+--- a/net/minecraft/world/entity/item/ItemEntity.java
++++ b/net/minecraft/world/entity/item/ItemEntity.java
+@@ -265,6 +265,14 @@ public class ItemEntity extends Entity implements TraceableEntity, net.caffeinem
+             for (ItemEntity entity : this.level()
+                 .getEntitiesOfClass(ItemEntity.class, this.getBoundingBox().inflate(radius, this.level().paperConfig().entities.behavior.onlyMergeItemsHorizontally ? 0 : radius - 0.5D, radius), other -> other != this && other.isMergable())) { // Spigot // Paper - configuration to only merge items horizontally
+                 if (entity.isMergable()) {
++                    // Leaf start - Skip item merge checks for full stacks
++                    final ItemStack item = this.getItem();
++                    final ItemStack otherItem = entity.getItem();
++                    // Nebula start - early type check before expensive wall raycast
++                    if (!ItemEntity.areMergable(item, otherItem)) {
++                        continue;
++                    }
++                    // Nebula end
+                     // Paper start - Fix items merging through walls
+                     if (this.level().paperConfig().fixes.fixItemsMergingThroughWalls) {
+                         if (this.level().clipDirect(this.position(), entity.position(),
+@@ -273,9 +281,7 @@ public class ItemEntity extends Entity implements TraceableEntity, net.caffeinem
+                         }
+                     }
+                     // Paper end - Fix items merging through walls
+-                    // Leaf start - Skip item merge checks for full stacks
+-                    final ItemStack item = this.getItem();
+-                    this.tryToMerge(entity, item, entity.getItem());
++                    this.tryToMerge(entity, item, otherItem);
+                     if (this.isRemoved() || item.getCount() >= item.getMaxStackSize()) {
+                         // Leaf end - Skip item merge checks for full stacks
+                         break;
