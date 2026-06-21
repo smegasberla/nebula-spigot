@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Full profile suite: starts server, connects bots via patched protocol, profiles.
- * Monkey-patches minecraft-data to bridge 26.2 → 1.21.11 data,
+ * Monkey-patches minecraft-data to bridge 26.2 → 1.21.1 data,
  * overrides protocol version to 776.
  */
 const { spawn, execFileSync } = require('child_process');
@@ -13,7 +13,7 @@ const HOME = process.env.HOME;
 const CPU_PROFILE_S = parseInt(process.argv[2]) || 20;
 const BOT_COUNT = parseInt(process.argv[3]) || 8;
 const JAVA = path.join(HOME, 'tools/jdk-25.0.3+9/bin/java');
-const JAR = path.join(HOME, 'Documenti/_Spyral/nebula-spigot/leaf-server/build/libs/leaf-bundler-26.2.local-SNAPSHOT.jar');
+const JAR = path.join(HOME, 'Documenti/_Spyral/nebula-spigot/leaf-server/build/libs/leaf-bundler-1.21.11.local-SNAPSHOT.jar');
 const ASPROF = path.join(HOME, 'tools/async-profiler-3.0-linux-x64/bin/asprof');
 const WORK = `/tmp/nsb-${Date.now()}`;
 const OUT = '/tmp/nsb';
@@ -23,7 +23,7 @@ fs.mkdirSync(WORK, { recursive: true });
 fs.writeFileSync(path.join(WORK, 'eula.txt'), 'eula=true\n');
 fs.writeFileSync(path.join(WORK, 'server.properties'), 'online-mode=false\nserver-port=25565\n');
 
-// ── Patch minecraft-data for 26.2 → 1.21.11 ──
+// ── Patch minecraft-data for 26.2 → 1.21.1 ──
 const mcData = require('minecraft-data');
 const data21_11 = mcData('1.21.11');
 const origMcData = mcData;

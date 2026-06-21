@@ -41,13 +41,13 @@ for (name in listOf("leaf-api", "leaf-server")) {
 }
 
 gradle.lifecycle.beforeProject {
-    val mcVersion = providers.gradleProperty("mcVersion").get().trim()
+    val versionDisplay = providers.gradleProperty("nebulaVersion").get().trim()
     val paperVersionChannel = providers.gradleProperty("channel").get().trim()
     val paperBuildNumber = providers.environmentVariable("BUILD_NUMBER").orNull?.trim()?.toInt()
     val versionString = if (paperBuildNumber == null) {
-        "$mcVersion.local-SNAPSHOT"
+        "$versionDisplay.local-SNAPSHOT"
     } else {
-        "$mcVersion.build.$paperBuildNumber-${paperVersionChannel.lowercase()}"
+        "$versionDisplay.build.$paperBuildNumber-${paperVersionChannel.lowercase()}"
     }
     version = versionString
 }

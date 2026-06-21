@@ -2,9 +2,9 @@ name: Build Nebula
 
 on:
   push:
-    branches: [ "ver/26.2" ]
+    branches: [ "ver/1.21.11" ]
   pull_request:
-    branches: [ "ver/26.2" ]
+    branches: [ "ver/1.21.11" ]
   workflow_dispatch:
 
 jobs:

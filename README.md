@@ -64,7 +64,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("cn.dreeam.leaf:leaf-api:26.2.build.+")
+    compileOnly("cn.dreeam.leaf:leaf-api:1.21.11.build.+")
 }
 
 java {
@@ -83,7 +83,7 @@ java {
 <dependency>
     <groupId>cn.dreeam.leaf</groupId>
     <artifactId>leaf-api</artifactId>
-    <version>[26.2.build,)</version>
+    <version>[1.21.11.build,)</version>
     <scope>provided</scope>
 </dependency>
 ```

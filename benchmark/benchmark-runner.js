@@ -13,7 +13,7 @@ const DURATION = parseInt(process.argv[2]) || 60;
 const BOT_COUNT = parseInt(process.argv[3]) || 10;
 const NEBULA_DIR = path.resolve(__dirname, '..');
 const JAVA_HOME = process.env.JAVA_HOME || path.join(process.env.HOME, 'tools/jdk-25.0.3+9');
-const JAR = path.join(NEBULA_DIR, 'leaf-server/build/libs/leaf-bundler-26.2.local-SNAPSHOT.jar');
+const JAR = path.join(NEBULA_DIR, 'leaf-server/build/libs/leaf-bundler-1.21.11.local-SNAPSHOT.jar');
 const ASPROF = path.join(process.env.HOME, 'tools/async-profiler-3.0-linux-x64/bin/asprof');
 
 const WORK_DIR = path.join('/tmp', `nebula-bench-${Date.now()}`);

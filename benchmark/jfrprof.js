@@ -11,7 +11,7 @@ const HOME = process.env.HOME;
 const CPU_S = parseInt(process.argv[2]) || 30;
 const ENTITY_COUNT = parseInt(process.argv[3]) || 2000;
 const JAVA = path.join(HOME, 'tools/jdk-25.0.3+9/bin/java');
-const JAR = path.join(HOME, 'Documenti/_Spyral/nebula-spigot/leaf-server/build/libs/leaf-bundler-26.2.local-SNAPSHOT.jar');
+const JAR = path.join(HOME, 'Documenti/_Spyral/nebula-spigot/leaf-server/build/libs/leaf-bundler-1.21.11.local-SNAPSHOT.jar');
 const WORK = `/tmp/nsjfr-${Date.now()}`;
 const OUT = '/tmp/nsjfr';
 fs.rmSync(OUT, { recursive: true, force: true });

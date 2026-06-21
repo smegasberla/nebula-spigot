@@ -12,7 +12,7 @@ const BOT_COUNT = parseInt(process.argv[3]) || 10;
 
 const HOME = process.env.HOME;
 const JAVA = path.join(HOME, 'tools/jdk-25.0.3+9/bin/java');
-const JAR = path.join(HOME, 'Documenti/_Spyral/nebula-spigot/leaf-server/build/libs/leaf-bundler-26.2.local-SNAPSHOT.jar');
+const JAR = path.join(HOME, 'Documenti/_Spyral/nebula-spigot/leaf-server/build/libs/leaf-bundler-1.21.11.local-SNAPSHOT.jar');
 const ASPROF = path.join(HOME, 'tools/async-profiler-3.0-linux-x64/bin/asprof');
 const WORK = `/tmp/nsprof-${Date.now()}`;
 const OUT = '/tmp/nsprofile';

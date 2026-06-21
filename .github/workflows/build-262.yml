@@ -1,8 +1,8 @@
-name: Build Leaf 26.2
+name: Build Leaf 1.21.11
 
 on:
   push:
-    branches: [ "ver/26.2" ]
+    branches: [ "ver/1.21.11" ]
   workflow_dispatch:
 
 jobs:
@@ -11,7 +11,7 @@ jobs:
     if: ${{ github.repository == 'Winds-Studio/Leaf' }}
     runs-on: blacksmith-8vcpu-ubuntu-2404
     env:
-      MC_VERSION: "26.2"
+      MC_VERSION: "1.21.11"
       BUILD_NUMBER: ${{ github.run_number }}
     steps:
       - name: Checkout repository

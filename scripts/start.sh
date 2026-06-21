@@ -9,7 +9,7 @@ PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 JAVA_HOME="${JAVA_HOME:-$HOME/tools/jdk-25.0.3+9}"
 MEM_MIN="${MEM_MIN:-2G}"
 MEM_MAX="${MEM_MAX:-2G}"
-JAR="${JAR:-$PROJECT_DIR/leaf-server/build/libs/leaf-bundler-26.2.local-SNAPSHOT.jar}"
+JAR="${JAR:-$PROJECT_DIR/leaf-server/build/libs/leaf-bundler-1.21.11.local-SNAPSHOT.jar}"
 SERVER_DIR="${SERVER_DIR:-$(pwd)}"
 PROFILER_HOME="${PROFILER_HOME:-$HOME/tools/async-profiler-3.0-linux-x64}"
 
